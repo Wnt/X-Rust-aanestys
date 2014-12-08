@@ -1,0 +1,12 @@
+.DS_Store
+.idea/
+*.iml
+target/
+aanestys/overlays/
+aanestys-server/src/main/webapp/VAADIN/themes/aanestys/styles.css
+.settings/
+*/.settings/
+.classpath
+*/.classpath
+.project
+*/.project
