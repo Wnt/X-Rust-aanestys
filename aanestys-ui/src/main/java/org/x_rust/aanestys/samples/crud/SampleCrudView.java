@@ -3,7 +3,7 @@ package org.x_rust.aanestys.samples.crud;
 import java.util.Collection;
 
 import org.x_rust.aanestys.samples.backend.DataService;
-import org.x_rust.aanestys.samples.backend.data.Product;
+import org.x_rust.aanestys.samples.backend.data.Nominee;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -124,11 +124,11 @@ public class SampleCrudView extends CssLayout implements View {
         table.setValue(null);
     }
 
-    public void selectRow(Product row) {
+    public void selectRow(Nominee row) {
         table.setValue(row);
     }
 
-    public void editProduct(Product product) {
+    public void editProduct(Nominee product) {
         if (product != null) {
             form.addStyleName("visible");
             form.setEnabled(true);
@@ -139,12 +139,12 @@ public class SampleCrudView extends CssLayout implements View {
         form.editProduct(product);
     }
 
-    public Product getSelectedRow() {
+    public Nominee getSelectedRow() {
         return table.getValue();
     }
 
-    public void showProducts(Collection<Product> products) {
-        BeanItemContainer<Product> container = table.getContainerDataSource();
+    public void showProducts(Collection<Nominee> products) {
+        BeanItemContainer<Nominee> container = table.getContainerDataSource();
         container.removeAllItems();
         container.addAll(products);
     }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.x_rust.aanestys.samples.backend.DataService;
 import org.x_rust.aanestys.samples.backend.data.Category;
-import org.x_rust.aanestys.samples.backend.data.Product;
+import org.x_rust.aanestys.samples.backend.data.Nominee;
 
 /**
  * Mock data model. Does not handling locking in any way and is not thread safe
@@ -13,7 +13,7 @@ public class MockDataService extends DataService {
 
     private static MockDataService INSTANCE;
 
-    private List<Product> products;
+    private List<Nominee> products;
     private List<Category> categories;
     private int nextProductId = 0;
 
@@ -30,7 +30,7 @@ public class MockDataService extends DataService {
         return INSTANCE;
     }
 
-    public List<Product> getAllProducts() {
+    public List<Nominee> getAllProducts() {
         return products;
     }
 
@@ -39,7 +39,7 @@ public class MockDataService extends DataService {
     }
 
     @Override
-    public void updateProduct(Product p) {
+    public void updateProduct(Nominee p) {
         if (p.getId() < 0) {
             // New product
             p.setId(nextProductId++);
@@ -58,7 +58,7 @@ public class MockDataService extends DataService {
     }
 
     @Override
-    public Product getProductById(int productId) {
+    public Nominee getProductById(int productId) {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId() == productId)
                 return products.get(i);
@@ -68,9 +68,9 @@ public class MockDataService extends DataService {
 
     @Override
     public void deleteProduct(int productId) {
-        Product p = getProductById(productId);
+        Nominee p = getProductById(productId);
         if (p == null)
-            throw new IllegalArgumentException("Product with id " + productId
+            throw new IllegalArgumentException("Nominee with id " + productId
                     + " not found");
         products.remove(p);
     }

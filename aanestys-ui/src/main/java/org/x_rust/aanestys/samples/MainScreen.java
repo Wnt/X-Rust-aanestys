@@ -1,7 +1,11 @@
 package org.x_rust.aanestys.samples;
 
+import java.util.Collection;
+
 import org.x_rust.aanestys.AanestysUI;
 import org.x_rust.aanestys.samples.about.AboutView;
+import org.x_rust.aanestys.samples.backend.DataService;
+import org.x_rust.aanestys.samples.backend.data.Category;
 import org.x_rust.aanestys.samples.crud.SampleCrudView;
 
 import com.vaadin.navigator.Navigator;
@@ -29,8 +33,11 @@ public class MainScreen extends HorizontalLayout {
         final Navigator navigator = new Navigator(ui, viewContainer);
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
-        menu.addView(new SampleCrudView(), SampleCrudView.VIEW_NAME,
-                SampleCrudView.VIEW_NAME, FontAwesome.EDIT);
+        Collection<Category> categories = DataService.get().getAllCategories();
+        for (Category category : categories) {
+            menu.addView(SampleCrudView.class, category.getName(),
+            		category.getName(), FontAwesome.EDIT);
+		}
         menu.addView(new AboutView(), AboutView.VIEW_NAME, AboutView.VIEW_NAME,
                 FontAwesome.INFO_CIRCLE);
 

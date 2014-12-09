@@ -8,20 +8,18 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class Product implements Serializable {
+public class Nominee implements Serializable {
 
     @NotNull
     private int id = -1;
     @NotNull
-    @Size(min = 2, message = "Product name must have at least two characters")
-    private String productName = "";
+    @Size(min = 2, message = "Nominee name must have at least two characters")
+    private String nomineeName = "";
     @Min(0)
     private BigDecimal price = BigDecimal.ZERO;
     private Set<Category> category;
     @Min(value = 0, message = "Can't have negative amount in stock")
     private int stockCount = 0;
-    @NotNull
-    private Availability availability = Availability.COMING;
 
     public int getId() {
         return id;
@@ -31,13 +29,6 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
 
     public BigDecimal getPrice() {
         return price;
@@ -63,12 +54,12 @@ public class Product implements Serializable {
         this.stockCount = stockCount;
     }
 
-    public Availability getAvailability() {
-        return availability;
-    }
+	public String getNomineeName() {
+		return nomineeName;
+	}
 
-    public void setAvailability(Availability availability) {
-        this.availability = availability;
-    }
+	public void setNomineeName(String nomineeName) {
+		this.nomineeName = nomineeName;
+	}
 
 }

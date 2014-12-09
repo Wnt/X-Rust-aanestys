@@ -2,7 +2,7 @@ package org.x_rust.aanestys.samples.crud;
 
 import org.x_rust.aanestys.AanestysUI;
 import org.x_rust.aanestys.samples.backend.DataService;
-import org.x_rust.aanestys.samples.backend.data.Product;
+import org.x_rust.aanestys.samples.backend.data.Nominee;
 
 import com.vaadin.server.Page;
 
@@ -64,7 +64,7 @@ public class SampleCrudLogic {
                 // login
                 try {
                     int pid = Integer.parseInt(productId);
-                    Product product = findProduct(pid);
+                    Nominee product = findProduct(pid);
                     view.selectRow(product);
                 } catch (NumberFormatException e) {
                 }
@@ -72,12 +72,12 @@ public class SampleCrudLogic {
         }
     }
 
-    private Product findProduct(int productId) {
+    private Nominee findProduct(int productId) {
         return DataService.get().getProductById(productId);
     }
 
-    public void saveProduct(Product product) {
-        view.showSaveNotification(product.getProductName() + " ("
+    public void saveProduct(Nominee product) {
+        view.showSaveNotification(product.getNomineeName() + " ("
                 + product.getId() + ") updated");
         view.clearSelection();
         view.editProduct(null);
@@ -85,9 +85,9 @@ public class SampleCrudLogic {
         setFragmentParameter("");
     }
 
-    public void deleteProduct(Product product) {
+    public void deleteProduct(Nominee product) {
         DataService.get().deleteProduct(product.getId());
-        view.showSaveNotification(product.getProductName() + " ("
+        view.showSaveNotification(product.getNomineeName() + " ("
                 + product.getId() + ") removed");
 
         view.clearSelection();
@@ -96,7 +96,7 @@ public class SampleCrudLogic {
         setFragmentParameter("");
     }
 
-    public void editProduct(Product product) {
+    public void editProduct(Nominee product) {
         if (product == null) {
             setFragmentParameter("");
         } else {
@@ -106,7 +106,7 @@ public class SampleCrudLogic {
     }
 
     private void refreshTable() {
-        Product oldSelection = view.getSelectedRow();
+        Nominee oldSelection = view.getSelectedRow();
         view.showProducts(DataService.get().getAllProducts());
         view.selectRow(oldSelection);
     }
@@ -114,10 +114,10 @@ public class SampleCrudLogic {
     public void newProduct() {
         view.clearSelection();
         setFragmentParameter("new");
-        view.editProduct(new Product());
+        view.editProduct(new Nominee());
     }
 
-    public void rowSelected(Product product) {
+    public void rowSelected(Nominee product) {
         if (AanestysUI.get().getAccessControl().isUserInRole("admin")) {
             view.editProduct(product);
         }
