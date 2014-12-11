@@ -30,6 +30,7 @@
 		<module>aanestys-widgetset</module>
 		<module>aanestys-ui</module>
 		<module>aanestys-production</module>
+		<module>aanestys-backend</module>
 	</modules>
 
 	<properties>

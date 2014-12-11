@@ -32,6 +32,12 @@
 			<artifactId>vaadin-themes</artifactId>
 		</dependency>
 		
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>aanestys-backend</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+		
         <!-- Custom components -->
         <dependency>
             <groupId>${project.groupId}</groupId>
