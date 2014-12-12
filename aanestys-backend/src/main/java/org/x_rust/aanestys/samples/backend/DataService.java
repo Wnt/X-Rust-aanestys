@@ -17,9 +17,9 @@ public abstract class DataService {
 
     public abstract void updateProduct(Nominee p);
 
-    public abstract void deleteProduct(int productId);
+    public abstract void deleteProduct(long productId);
 
-    public abstract Nominee getProductById(int productId);
+    public abstract Nominee getProductById(long productId);
 
     public static DataService get() {
         return MockDataService.getInstance();

@@ -56,23 +56,9 @@ public class MockDataGenerator {
 		p.setId(nextProductId++);
 		p.setNomineeName(generateNomineeName());
 
-		p.setPrice(new BigDecimal((random.nextInt(250) + 50) / 10.0));
-
-		p.setCategory(getCategory(categories, 1, 2));
 		return p;
 	}
 
-	private static Set<Category> getCategory(List<Category> categories,
-			int min, int max) {
-		int nr = random.nextInt(max) + min;
-		HashSet<Category> productCategories = new HashSet<Category>();
-		for (int i = 0; i < nr; i++) {
-			productCategories.add(categories.get(random.nextInt(categories
-					.size())));
-		}
-
-		return productCategories;
-	}
 
 	private static String generateNomineeName() {
 		return word1[random.nextInt(word1.length)] + " "

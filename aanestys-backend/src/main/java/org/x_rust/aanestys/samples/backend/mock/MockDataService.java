@@ -58,7 +58,7 @@ public class MockDataService extends DataService {
     }
 
     @Override
-    public Nominee getProductById(int productId) {
+    public Nominee getProductById(long productId) {
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId() == productId)
                 return products.get(i);
@@ -67,7 +67,7 @@ public class MockDataService extends DataService {
     }
 
     @Override
-    public void deleteProduct(int productId) {
+    public void deleteProduct(long productId) {
         Nominee p = getProductById(productId);
         if (p == null)
             throw new IllegalArgumentException("Nominee with id " + productId

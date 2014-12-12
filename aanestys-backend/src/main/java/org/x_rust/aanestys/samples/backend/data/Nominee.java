@@ -1,57 +1,40 @@
 package org.x_rust.aanestys.samples.backend.data;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
-import javax.validation.constraints.Min;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class Nominee implements Serializable {
+@Entity
+public class Nominee {
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @NotNull
-    private int id = -1;
+    private long id = -1;
+    
+    @Column(unique=true)
     @NotNull
     @Size(min = 2, message = "Nominee name must have at least two characters")
     private String nomineeName = "";
-    @Min(0)
-    private BigDecimal price = BigDecimal.ZERO;
-    private Set<Category> category;
-    @Min(value = 0, message = "Can't have negative amount in stock")
-    private int stockCount = 0;
-
-    public int getId() {
+    
+    @ManyToMany(mappedBy="nominees")
+    private List<Category> categories;
+    
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Set<Category> getCategory() {
-        return category;
-    }
-
-    public void setCategory(Set<Category> category) {
-        this.category = category;
-    }
-
-    public int getStockCount() {
-        return stockCount;
-    }
-
-    public void setStockCount(int stockCount) {
-        this.stockCount = stockCount;
     }
 
 	public String getNomineeName() {
@@ -60,6 +43,10 @@ public class Nominee implements Serializable {
 
 	public void setNomineeName(String nomineeName) {
 		this.nomineeName = nomineeName;
+	}
+
+	public List<Category> getGategories() {
+		return categories;
 	}
 
 }
