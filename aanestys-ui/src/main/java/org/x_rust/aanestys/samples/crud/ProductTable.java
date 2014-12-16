@@ -1,6 +1,6 @@
 package org.x_rust.aanestys.samples.crud;
 
-import org.x_rust.aanestys.samples.backend.data.Nominee;
+import org.x_rust.aanestys.backend.data.Nominee;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;

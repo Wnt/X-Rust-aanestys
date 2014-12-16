@@ -1,8 +1,8 @@
 package org.x_rust.aanestys.samples.crud;
 
 import org.x_rust.aanestys.AanestysUI;
-import org.x_rust.aanestys.samples.backend.DataService;
-import org.x_rust.aanestys.samples.backend.data.Nominee;
+import org.x_rust.aanestys.backend.data.Nominee;
+import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 import com.vaadin.server.Page;
 
@@ -73,7 +73,7 @@ public class SampleCrudLogic {
     }
 
     private Nominee findProduct(int productId) {
-        return DataService.get().getProductById(productId);
+        return DataService.getInstance().getNomineeById(productId);
     }
 
     public void saveProduct(Nominee product) {
@@ -85,10 +85,10 @@ public class SampleCrudLogic {
         setFragmentParameter("");
     }
 
-    public void deleteProduct(Nominee product) {
-        DataService.get().deleteProduct(product.getId());
-        view.showSaveNotification(product.getNomineeName() + " ("
-                + product.getId() + ") removed");
+    public void deleteProduct(Nominee nominee) {
+        DataService.getInstance().deleteNominee(nominee);
+        view.showSaveNotification(nominee.getNomineeName() + " ("
+                + nominee.getId() + ") removed");
 
         view.clearSelection();
         view.editProduct(null);
@@ -107,7 +107,7 @@ public class SampleCrudLogic {
 
     private void refreshTable() {
         Nominee oldSelection = view.getSelectedRow();
-        view.showProducts(DataService.get().getAllProducts());
+        view.showProducts(DataService.getInstance().getAllNominees());
         view.selectRow(oldSelection);
     }
 

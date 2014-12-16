@@ -2,9 +2,9 @@ package org.x_rust.aanestys.samples.crud;
 
 import java.util.Collection;
 
-import org.x_rust.aanestys.samples.backend.DataService;
-import org.x_rust.aanestys.samples.backend.data.Category;
-import org.x_rust.aanestys.samples.backend.data.Nominee;
+import org.x_rust.aanestys.backend.data.Category;
+import org.x_rust.aanestys.backend.data.Nominee;
+import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -96,7 +96,7 @@ public class ProductForm extends CssLayout {
             @Override
             public void postCommit(CommitEvent commitEvent)
                     throws CommitException {
-                DataService.get().updateProduct(
+                DataService.getInstance().update(
                         fieldGroup.getItemDataSource().getBean());
             }
         });

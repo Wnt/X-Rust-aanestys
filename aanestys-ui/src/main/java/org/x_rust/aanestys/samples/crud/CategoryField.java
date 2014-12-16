@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.x_rust.aanestys.samples.backend.data.Category;
+import org.x_rust.aanestys.backend.data.Category;
 
 import com.vaadin.data.util.converter.Converter.ConversionException;
 import com.vaadin.ui.CheckBox;

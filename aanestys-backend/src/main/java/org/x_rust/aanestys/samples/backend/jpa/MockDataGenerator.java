@@ -1,4 +1,4 @@
-package org.x_rust.aanestys.samples.backend.mock;
+package org.x_rust.aanestys.samples.backend.jpa;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import org.x_rust.aanestys.samples.backend.data.Category;
-import org.x_rust.aanestys.samples.backend.data.Nominee;
+import org.x_rust.aanestys.backend.data.Category;
+import org.x_rust.aanestys.backend.data.Nominee;
 
 public class MockDataGenerator {
 	private static int nextCategoryId = 1;

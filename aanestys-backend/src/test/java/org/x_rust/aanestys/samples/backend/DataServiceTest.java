@@ -1,13 +1,14 @@
 package org.x_rust.aanestys.samples.backend;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.x_rust.aanestys.samples.backend.DataService;
-import org.x_rust.aanestys.samples.backend.data.Nominee;
-import org.x_rust.aanestys.samples.backend.mock.MockDataService;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.x_rust.aanestys.backend.data.Category;
+import org.x_rust.aanestys.backend.data.Nominee;
+import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 /**
  * Simple unit test for the back-end data service.
@@ -18,12 +19,19 @@ public class DataServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        service = MockDataService.getInstance();
+        service = DataService.getInstance();
+        Nominee n = new Nominee();
+        n.setNomineeName("no");
+        service.update(n);
+        
+        Category c = new Category();
+        c.setName("dasd");
+        service.update(c);
     }
 
     @Test
-    public void testDataServiceCanFetchProducts() throws Exception {
-        assertFalse(service.getAllProducts().isEmpty());
+    public void testDataServiceCanFetchNominees() throws Exception {
+        assertFalse(service.getAllNominees().isEmpty());
     }
 
     @Test
@@ -32,11 +40,21 @@ public class DataServiceTest {
     }
 
     @Test
-    public void testUpdateProduct_updatesTheProduct() throws Exception {
-        Nominee p = service.getAllProducts().iterator().next();
-        p.setNomineeName("My Test Name");
-        service.updateProduct(p);
-        Nominee p2 = service.getAllProducts().iterator().next();
+    public void testUpdateNominee() throws Exception {
+        Nominee n = service.getAllNominees().iterator().next();
+        n.setNomineeName("My Test Name");
+        service.update(n);
+        Nominee p2 = service.getAllNominees().iterator().next();
         assertEquals("My Test Name", p2.getNomineeName());
+    }
+    
+    @After
+    public void teardown() {
+    	for (Nominee nominee : service.getAllNominees()) {
+			service.deleteNominee(nominee);
+		}
+    	for (Category category : service.getAllCategories()) {
+			service.deleteCategory(category);
+		}
     }
 }

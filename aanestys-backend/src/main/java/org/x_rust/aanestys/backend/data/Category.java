@@ -1,6 +1,6 @@
-package org.x_rust.aanestys.samples.backend.data;
+package org.x_rust.aanestys.backend.data;
 
-import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -30,7 +30,7 @@ public class Category {
         name="CATEGORY_NOMINEE",
         joinColumns={@JoinColumn(name="CATEGORY_ID")},
         inverseJoinColumns={@JoinColumn(name="NOMINEE_ID")})
-    private List<Nominee> nominees;
+    private List<Nominee> nominees = new LinkedList<Nominee>();
 
     public int getId() {
         return id;
@@ -47,20 +47,20 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Override
-    public String toString() {
-        return getName();
-    }
     
     public List<Nominee> getNominees() {
     	return nominees;
     }
     
     public void addNominee(Nominee nominee) {
-    	nominees.add(nominee);
-    	if (!nominee.getGategories().contains(this)) {
-    		nominee.getGategories().add(this);
+    	getNominees().add(nominee);
+    	if (!nominee.getCategories().contains(this)) {
+    		nominee.getCategories().add(this);
     	}
     }
+
+    @Override
+	public String toString() {
+		return "Category [name=" + name + ", nominees=" + nominees + "]";
+	}
 }

@@ -2,8 +2,8 @@ package org.x_rust.aanestys.samples.crud;
 
 import java.util.Collection;
 
-import org.x_rust.aanestys.samples.backend.DataService;
-import org.x_rust.aanestys.samples.backend.data.Nominee;
+import org.x_rust.aanestys.backend.data.Nominee;
+import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -53,7 +53,7 @@ public class SampleCrudView extends CssLayout implements View {
         });
 
         form = new ProductForm(viewLogic);
-        form.setCategories(DataService.get().getAllCategories());
+        form.setCategories(DataService.getInstance().getAllCategories());
 
         VerticalLayout barAndTableLayout = new VerticalLayout();
         barAndTableLayout.addComponent(topLayout);

@@ -1,99 +1,121 @@
 package org.x_rust.aanestys.samples.backend;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.util.List;
 import java.util.logging.Logger;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import junit.framework.TestCase;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.x_rust.aanestys.samples.backend.data.Category;
-import org.x_rust.aanestys.samples.backend.data.Nominee;
+import org.x_rust.aanestys.backend.data.Category;
+import org.x_rust.aanestys.backend.data.Nominee;
+import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 public class PersistenceUnitTest extends TestCase {
 
 	private static Logger logger = Logger.getLogger(PersistenceUnitTest.class
 			.getName());
 
-	private EntityManagerFactory emFactory;
-
-	private EntityManager em;
-
-	private Connection connection;
-
-	@Before
-	protected void setUp() throws Exception {
-		super.setUp();
-		try {
-			logger.info("Starting in-memory HSQL database for unit tests");
-			Class.forName("org.hsqldb.jdbcDriver");
-			connection = DriverManager.getConnection(
-					"jdbc:hsqldb:mem:unit-testing-jpa", "sa", "");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			fail("Exception during HSQL database startup.");
-		}
-		try {
-			logger.info("Building JPA EntityManager for unit tests");
-			emFactory = Persistence.createEntityManagerFactory("testPU");
-			em = emFactory.createEntityManager();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			fail("Exception during JPA EntityManager instanciation.");
-		}
-	}
-
-	@After
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		logger.info("Shuting down JPA layer.");
-		if (em != null) {
-			em.close();
-		}
-		if (emFactory != null) {
-			emFactory.close();
-		}
-		logger.info("Stopping in-memory HSQL database.");
-		try {
-			connection.createStatement().execute("SHUTDOWN");
-		} catch (Exception ex) {
-		}
-	}
+	DataService ds = DataService.getInstance();
 
 	@Test
 	public void testNomineePersistence() {
-		try {
 
-            Nominee n = new Nominee();
-            n.setNomineeName("Hello world");
-			em.getTransaction().begin();
-            em.persist(n);
-            assertTrue(em.contains(n));
-            
-            Category c = new Category();
-            c.setName("testikategoria");
-            em.persist(c);
-            assertTrue(em.contains(c));
-            
-            c.addNominee(n);
-            assertTrue(n.getGategories().contains(c));
-            
-            
-            em.remove(n);
-            assertFalse(em.contains(n));
+		Nominee n = new Nominee();
+		n.setNomineeName("Hello world");
 
-            em.getTransaction().commit();
-		} catch (Exception e) {
-            em.getTransaction().rollback();
-            e.printStackTrace();
-            fail("Exception during testNomineePersistence");
-		}
+		ds.update(n);
+
+		assertTrue(ds.contains(n));
+
+		Category c = new Category();
+		c.setName("testikategoria");
+		ds.update(c);
+		assertTrue(ds.contains(c));
+
+		c.addNominee(n);
+		assertTrue(n.getCategories().contains(c));
+
+		ds.deleteNominee(n);
+		assertFalse(ds.contains(n));
+
+		ds.deleteCategory(c);
+		assertFalse(ds.contains(c));
+	}
+
+	@Test
+	public void testCategoryRemoval() {
+
+		Nominee n = new Nominee();
+		n.setNomineeName("Hello worldadas");
+
+		ds.update(n);
+
+		assertTrue(ds.contains(n));
+
+		Category c = new Category();
+		c.setName("testikategoriaasda");
+		ds.update(c);
+		assertTrue(ds.contains(c));
+
+		c.addNominee(n);
+		assertTrue(n.getCategories().contains(c));
+
+		ds.deleteCategory(c);
+		assertFalse(ds.contains(c));
+
+		ds.deleteNominee(n);
+		assertFalse(ds.contains(n));
+
+	}
+
+	@Test
+	public void testNomineeListing() {
+
+		int startingNomineeCount = ds.getAllNominees().size();
+
+		Nominee n = new Nominee();
+		n.setNomineeName("Hello worldadas");
+
+		ds.update(n);
+
+		Nominee n2 = new Nominee();
+		n2.setNomineeName("Hello worldadasdasdas");
+
+		ds.update(n2);
+
+		assertTrue(ds.getAllNominees().size() == startingNomineeCount + 2);
+
+		ds.deleteNominee(n);
+		ds.deleteNominee(n2);
+
+		assertTrue(ds.getAllNominees().size() == startingNomineeCount);
+
+	}
+
+	@Test
+	public void testCategoryListing() {
+
+		int startingCount = ds.getAllCategories().size();
+
+		Category c = new Category();
+		c.setName("namee");
+
+		ds.update(c);
+
+		Category c2 = new Category();
+
+		c2.setName("dalkkdjaslk");
+		ds.update(c2);
+
+		List<Category> allCategories = ds.getAllCategories();
+		System.out.println(allCategories);
+		assertTrue(allCategories.size() == startingCount + 2);
+
+		ds.deleteCategory(c);
+		ds.deleteCategory(c2);
+
+		assertTrue(ds.getAllCategories().size() == startingCount);
+
 	}
 
 }
