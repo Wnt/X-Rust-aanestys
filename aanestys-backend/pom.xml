@@ -34,4 +34,16 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18</version>
+				<configuration>
+				  <argLine>-Djavax.persistence.jdbc.driver=org.hsqldb.jdbcDriver -Djavax.persistence.jdbc.url=jdbc:hsqldb:mem:unit-testing-jpa -Djavax.persistence.jdbc.user=sa</argLine>
+				  </configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
