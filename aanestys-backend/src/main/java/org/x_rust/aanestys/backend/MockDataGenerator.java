@@ -1,4 +1,4 @@
-package org.x_rust.aanestys.samples.backend.jpa;
+package org.x_rust.aanestys.backend;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

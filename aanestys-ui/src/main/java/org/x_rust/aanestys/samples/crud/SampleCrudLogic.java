@@ -1,8 +1,10 @@
 package org.x_rust.aanestys.samples.crud;
 
+import javax.ejb.EJB;
+
 import org.x_rust.aanestys.AanestysUI;
+import org.x_rust.aanestys.backend.DataService;
 import org.x_rust.aanestys.backend.data.Nominee;
-import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 import com.vaadin.server.Page;
 
@@ -18,6 +20,8 @@ import com.vaadin.server.Page;
 public class SampleCrudLogic {
 
     private SampleCrudView view;
+    @EJB
+    private DataService ds;
 
     public SampleCrudLogic(SampleCrudView simpleCrudView) {
         view = simpleCrudView;
@@ -73,7 +77,7 @@ public class SampleCrudLogic {
     }
 
     private Nominee findProduct(int productId) {
-        return DataService.getInstance().getNomineeById(productId);
+        return ds.getNomineeById(productId);
     }
 
     public void saveProduct(Nominee product) {
@@ -86,7 +90,7 @@ public class SampleCrudLogic {
     }
 
     public void deleteProduct(Nominee nominee) {
-        DataService.getInstance().deleteNominee(nominee);
+        ds.deleteNominee(nominee);
         view.showSaveNotification(nominee.getNomineeName() + " ("
                 + nominee.getId() + ") removed");
 
@@ -107,7 +111,7 @@ public class SampleCrudLogic {
 
     private void refreshTable() {
         Nominee oldSelection = view.getSelectedRow();
-        view.showProducts(DataService.getInstance().getAllNominees());
+        view.showProducts(ds.getAllNominees());
         view.selectRow(oldSelection);
     }
 

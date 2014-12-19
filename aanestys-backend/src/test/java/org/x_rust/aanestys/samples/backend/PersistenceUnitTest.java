@@ -1,22 +1,48 @@
 package org.x_rust.aanestys.samples.backend;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
+
+import javax.ejb.embeddable.EJBContainer;
+import javax.naming.Context;
+import javax.naming.NamingException;
 
 import junit.framework.TestCase;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.x_rust.aanestys.backend.DataService;
 import org.x_rust.aanestys.backend.data.Category;
 import org.x_rust.aanestys.backend.data.Nominee;
-import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 public class PersistenceUnitTest extends TestCase {
 
 	private static Logger logger = Logger.getLogger(PersistenceUnitTest.class
 			.getName());
 
-	DataService ds = DataService.getInstance();
+	DataService ds;
 
+	@Before
+	public void setUp() {
+		logger.info("PersistenceUnitTest.setUp();");
+        final Properties p = new Properties();
+        p.put("votingDatabase", "new://Resource?type=DataSource");
+        p.put("votingDatabase.JdbcDriver", "org.hsqldb.jdbcDriver");
+        p.put("votingDatabase.JdbcUrl", "jdbc:hsqldb:mem:testdb");
+        
+        final Context context = EJBContainer.createEJBContainer(p).getContext();
+		logger.info("Context found");
+
+        try {
+			ds = (DataService) context.lookup("java:global/aanestys-backend/DataService");
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("Failed to lookup DataService");
+		}
+	}
+	
 	@Test
 	public void testNomineePersistence() {
 

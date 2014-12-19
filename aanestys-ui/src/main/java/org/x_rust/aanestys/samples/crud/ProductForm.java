@@ -2,9 +2,11 @@ package org.x_rust.aanestys.samples.crud;
 
 import java.util.Collection;
 
+import javax.ejb.EJB;
+
+import org.x_rust.aanestys.backend.DataService;
 import org.x_rust.aanestys.backend.data.Category;
 import org.x_rust.aanestys.backend.data.Nominee;
-import org.x_rust.aanestys.samples.backend.jpa.DataService;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -42,6 +44,8 @@ public class ProductForm extends CssLayout {
     Button removeButton = new Button("Delete");
     private SampleCrudLogic viewLogic;
     private BeanFieldGroup<Nominee> fieldGroup;
+    @EJB
+	protected DataService ds;
 
     public ProductForm(SampleCrudLogic sampleCrudLogic) {
         viewLogic = sampleCrudLogic;
@@ -96,7 +100,7 @@ public class ProductForm extends CssLayout {
             @Override
             public void postCommit(CommitEvent commitEvent)
                     throws CommitException {
-                DataService.getInstance().update(
+                ds.update(
                         fieldGroup.getItemDataSource().getBean());
             }
         });

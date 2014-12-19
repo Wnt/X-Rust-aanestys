@@ -37,6 +37,13 @@
 			<artifactId>aanestys-backend</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.openejb</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>6.0-6</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- Custom components -->
 		<dependency>
@@ -58,6 +65,11 @@
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-cdi</artifactId>
+			<version>1.0.2</version>
 		</dependency>
 	</dependencies>
 

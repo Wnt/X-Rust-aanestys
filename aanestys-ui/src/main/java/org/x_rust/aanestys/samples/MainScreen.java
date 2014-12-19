@@ -2,10 +2,12 @@ package org.x_rust.aanestys.samples;
 
 import java.util.Collection;
 
+import javax.ejb.EJB;
+
 import org.x_rust.aanestys.AanestysUI;
+import org.x_rust.aanestys.backend.DataService;
 import org.x_rust.aanestys.backend.data.Category;
 import org.x_rust.aanestys.samples.about.AboutView;
-import org.x_rust.aanestys.samples.backend.jpa.DataService;
 import org.x_rust.aanestys.samples.crud.SampleCrudView;
 
 import com.vaadin.navigator.Navigator;
@@ -21,6 +23,9 @@ import com.vaadin.ui.HorizontalLayout;
  */
 public class MainScreen extends HorizontalLayout {
     private Menu menu;
+    
+    @EJB
+	private DataService ds;
 
     public MainScreen(AanestysUI ui) {
 
@@ -33,7 +38,7 @@ public class MainScreen extends HorizontalLayout {
         final Navigator navigator = new Navigator(ui, viewContainer);
         navigator.setErrorView(ErrorView.class);
         menu = new Menu(navigator);
-        Collection<Category> categories = DataService.getInstance().getAllCategories();
+        Collection<Category> categories = ds.getAllCategories();
         for (Category category : categories) {
             menu.addView(SampleCrudView.class, category.getName(),
             		category.getName(), FontAwesome.EDIT);
