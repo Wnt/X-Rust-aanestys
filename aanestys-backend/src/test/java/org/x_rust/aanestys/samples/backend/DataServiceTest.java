@@ -26,9 +26,9 @@ public class DataServiceTest {
     @Before
     public void setUp() throws Exception {
         final Properties p = new Properties();
-        p.put("testDatabase", "new://Resource?type=DataSource");
-        p.put("testDatabase.JdbcDriver", "org.hsqldb.jdbcDriver");
-        p.put("testDatabase.JdbcUrl", "jdbc:hsqldb:mem:testdb");
+        p.put("votingDatabase", "new://Resource?type=DataSource");
+        p.put("votingDatabase.JdbcDriver", "org.hsqldb.jdbcDriver");
+        p.put("votingDatabase.JdbcUrl", "jdbc:hsqldb:mem:testdb");
         
         final Context context = EJBContainer.createEJBContainer(p).getContext();
 

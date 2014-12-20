@@ -84,10 +84,12 @@ public class PersistenceUnitTest extends TestCase {
 		assertTrue(ds.contains(c));
 
 		c.addNominee(n);
-		assertTrue(n.getCategories().contains(c));
+		List<Category> categories = n.getCategories();
+		assertTrue(categories.contains(c));
 
 		ds.deleteCategory(c);
-		assertFalse(ds.contains(c));
+		logger.info("category removed");
+		assertFalse("ds.contains(c)",ds.contains(c));
 
 		ds.deleteNominee(n);
 		assertFalse(ds.contains(n));
@@ -100,12 +102,12 @@ public class PersistenceUnitTest extends TestCase {
 		int startingNomineeCount = ds.getAllNominees().size();
 
 		Nominee n = new Nominee();
-		n.setNomineeName("Hello worldadas");
+		n.setNomineeName("Hello worldaas");
 
 		ds.update(n);
 
 		Nominee n2 = new Nominee();
-		n2.setNomineeName("Hello worldadasdasdas");
+		n2.setNomineeName("Hello worldadsdasdas");
 
 		ds.update(n2);
 
