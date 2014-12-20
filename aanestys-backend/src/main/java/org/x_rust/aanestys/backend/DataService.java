@@ -3,6 +3,7 @@ package org.x_rust.aanestys.backend;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,12 +16,11 @@ import javax.persistence.criteria.Root;
 import org.x_rust.aanestys.backend.data.Category;
 import org.x_rust.aanestys.backend.data.Nominee;
 
-@Stateless
+@Stateful
 public class DataService {
 
 	private static Logger logger = Logger
 			.getLogger(DataService.class.getName());
-
 
 	@PersistenceContext(unitName = "voting-unit", type = PersistenceContextType.EXTENDED)
 	private EntityManager em;
@@ -40,9 +40,9 @@ public class DataService {
 
 	public void deleteCategory(Category c) {
 
-		// remove all Nominee links to clear the linking table
-		c.getNominees().removeAll(c.getNominees());
-
+		// remove all reverse links to this category
+		List<Nominee> nominees = c.getNominees();
+		nominees.forEach((nominee) -> nominee.getCategories().remove(c));
 		em.remove(c);
 	}
 
