@@ -50,7 +50,7 @@ public class Nominee {
 
 	@Override
 	public String toString() {
-		return "Nominee [nomineeName=" + nomineeName + ", categories="
-				+ categories + "]";
+		return "Nominee [nomineeName=" + nomineeName + ", category count="
+				+ categories.size() + "]";
 	}
 }

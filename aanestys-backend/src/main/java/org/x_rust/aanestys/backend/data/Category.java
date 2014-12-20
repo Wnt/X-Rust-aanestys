@@ -61,6 +61,6 @@ public class Category {
 
     @Override
 	public String toString() {
-		return "Category [name=" + name + ", nominees=" + nominees + "]";
+		return "Category [name=" + name + ", nominee count=" + nominees.size() + "]";
 	}
 }
