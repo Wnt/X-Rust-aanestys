@@ -68,6 +68,9 @@ public class DataServiceTest {
     
     @After
     public void teardown() {
+    	if (ds == null) {
+    		return;
+    	}
     	for (Nominee nominee : ds.getAllNominees()) {
 			ds.deleteNominee(nominee);
 		}
