@@ -3,8 +3,6 @@ package org.x_rust.aanestys;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.x_rust.aanestys.samples.MainScreen;
 import org.x_rust.aanestys.samples.authentication.AccessControl;
 import org.x_rust.aanestys.samples.authentication.BasicAccessControl;
@@ -14,13 +12,8 @@ import org.x_rust.aanestys.samples.authentication.LoginScreen.LoginListener;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.annotations.Widgetset;
-import com.vaadin.server.BootstrapFragmentResponse;
-import com.vaadin.server.BootstrapListener;
-import com.vaadin.server.BootstrapPageResponse;
+import com.vaadin.cdi.CDIUI;
 import com.vaadin.server.Responsive;
-import com.vaadin.server.ServiceException;
-import com.vaadin.server.SessionInitEvent;
-import com.vaadin.server.SessionInitListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
@@ -29,7 +22,8 @@ import com.vaadin.ui.UI;
  * 
  */
 @Theme("aanestys")
-@Widgetset("org.x_rust.aanestys.AanestysWidgetset")
+//@Widgetset("org.x_rust.aanestys.AanestysWidgetset")
+@CDIUI("")
 public class AanestysUI extends UI {
 
     private AccessControl accessControl = new BasicAccessControl();
@@ -64,23 +58,23 @@ public class AanestysUI extends UI {
         return accessControl;
     }
 
-    @WebServlet(urlPatterns = "/*", name = "AanestysUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = AanestysUI.class, productionMode = false)
-    public static class AanestysUIServlet extends VaadinServlet {
-        @Override
-        protected void servletInitialized() throws ServletException {
-            super.servletInitialized();
-            /*
-             * Configure the viewport meta tags appropriately on mobile devices.
-             * Instead of device based scaling (default), using responsive
-             * layouts.
-             * 
-             * If using Vaadin TouchKit, this is done automatically and it is
-             * sufficient to have an empty servlet class extending
-             * TouchKitServlet.
-             */
-            getService().addSessionInitListener(
-                    new ViewPortSessionInitListener());
-        }
-    }
+//    @WebServlet(urlPatterns = "/*", name = "AanestysUIServlet", asyncSupported = true)
+//    @VaadinServletConfiguration(ui = AanestysUI.class, productionMode = false)
+//    public static class AanestysUIServlet extends VaadinServlet {
+//        @Override
+//        protected void servletInitialized() throws ServletException {
+//            super.servletInitialized();
+//            /*
+//             * Configure the viewport meta tags appropriately on mobile devices.
+//             * Instead of device based scaling (default), using responsive
+//             * layouts.
+//             * 
+//             * If using Vaadin TouchKit, this is done automatically and it is
+//             * sufficient to have an empty servlet class extending
+//             * TouchKitServlet.
+//             */
+//            getService().addSessionInitListener(
+//                    new ViewPortSessionInitListener());
+//        }
+//    }
 }

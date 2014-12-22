@@ -37,26 +37,12 @@
 			<artifactId>aanestys-backend</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.openejb</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>6.0-6</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<!-- Custom components -->
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>aanestys-widgetset</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<!-- Bean validation implementation -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.1.0.CR1</version>
 		</dependency>
 
 		<!-- Testing -->
@@ -70,6 +56,11 @@
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-cdi</artifactId>
 			<version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-client-compiled</artifactId>
+			<version>7.3.7</version>
 		</dependency>
 	</dependencies>
 
